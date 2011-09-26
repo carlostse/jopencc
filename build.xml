@@ -63,7 +63,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</javac>
 	</target>
 	
-	<target name="build" depends="compile" description="build the JAR">
+	<target name="build_lib" depends="compile" description="build the library without GUI">
+		<jar jarfile="${build.dir}/${jar.fileName}-lib.jar">
+			<fileset dir="bin" includes="**/*.class">
+				<exclude name="jopencc/gui/*.class"/>
+			</fileset>
+			<fileset dir="." includes="*.properties" />
+		</jar>
+	</target>
+	
+	<target name="build" depends="compile" description="build the GUI program">
 		<jar jarfile="${build.dir}/${jar.fileName}.jar">
 			<manifest>
 				<attribute name="Main-Class" value="${main.class}"/>
@@ -73,6 +82,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<!-- fileset dir="bin" includes="*.properties" / -->
 			<zipfileset src="${swt.jar}" excludes="META-INF/*" />  
 		</jar>
+		<!-- don't want the following files included in the jar file -->
 		<copy overwrite="yes" file="icon.png" todir="${build.dir}" />
 		<copy todir="${build.dir}">
 			<fileset dir="." includes="*.properties" />

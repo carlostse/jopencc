@@ -29,6 +29,8 @@ package jopencc.util;
 
 import static jopencc.util.Util.*;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -79,7 +81,27 @@ public class Dict {
 			return;
 		
 		log("initialize map...");
-		String[] p = getValFrProperty(config + ".properties", new String[]{ PROPERTY_PHRASE, PROPERTY_CHAR });
+
+		InputStream is = null;
+		String[] p = null;
+
+		try {
+			is = getClass().getClassLoader().getResourceAsStream(config + ".properties");
+			p = getValFrProperty(is, new String[]{ PROPERTY_PHRASE, PROPERTY_CHAR });
+
+		} catch (Exception e){
+			log("initDict Exception: " + e.getStackTrace());
+			if (is != null){
+				try {
+					is.close();
+				} catch (IOException e1) {
+					log("initDict close IOException: " + e1.getStackTrace());
+				}
+				is = null;
+			}
+			return;
+		}
+
 		if (isMissing(p)){
 			log("cannot get config: " + config);
 			return;
@@ -110,14 +132,14 @@ public class Dict {
 		initDict();
 		
 		// map the phrases
-		log("map phrases...");
+//		log("map phrases...");
 		if (!isMissing(dictPhrase))
 			map(src, dictPhrase);
 		else 
 			log("missing dictPhrase");
 		
 		// map the characters
-		log("map characters...");
+//		log("map characters...");
 		if (!isMissing(dictChar))
 			map(src, dictChar);
 		else 

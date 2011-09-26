@@ -27,10 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package jopencc.util;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -105,19 +104,21 @@ public class Util {
 	
 	/**
 	 * Get values from property file
+	 * @param steam
 	 * @param key
-	 * @return
+	 * @return key array
 	 */
-	public static String[] getValFrProperty(String propertyFileName, String[] key){
+	public static String[] getValFrProperty(InputStream steam, String[] key){
 		if (isMissing(key)) 
 			return null;
 		
-		Properties p;
 		String[] result = new String[key.length];
+		Properties p;
 		int i = 0;
+		
 		try {
 			p = new Properties();
-			p.load(new BufferedInputStream(new FileInputStream(propertyFileName)));
+			p.load(steam);
 			
 			for (String s: key)
 				result[i++] = p.getProperty(s);
