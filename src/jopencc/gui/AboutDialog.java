@@ -51,21 +51,18 @@ public class AboutDialog {
 	private Image icon;
 
 	public void show(){
-		int i = 0;
 		Shell aboutShell = new Shell(display, SWT.DIALOG_TRIM);
-		aboutShell.setText(TXT[i++] + " " + TXT[i++]);
+		aboutShell.setText(PROG_NAME + " " + PROG_VERSION);
 		aboutShell.setImage(icon);
 
-		i += 3;
-		String msg = TXT[i++] + " " + TXT[i++] + " <" + TXT[i++] + ">\n\n" + 
-		TXT[i++] + "<a>" + TXT[i++] + "</a>";
+		String msg = ABT_AUTHOR + " " + ABT_NAME + " <" + ABT_EMAIL + ">\n\n" + ABT_HOMEPAGE + "<a>" + ABT_URL + "</a>";
 
 		org.eclipse.swt.widgets.Link label = new org.eclipse.swt.widgets.Link(aboutShell, SWT.NONE);
 		label.setText(msg);
 		label.setBounds(10, 20, 290, 50);
 
 		Button button = new Button(aboutShell, SWT.PUSH);
-		button.setText(TXT[i++]);
+		button.setText(BTN_OK);
 		button.setBounds(SHELL_SIZE.x - 20 - 80, SHELL_SIZE.y - 50- 25, 80, 25);
 		button.addListener(SWT.Selection, new aboutCloseListener());
 

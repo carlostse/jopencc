@@ -61,6 +61,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				<pathelement path="${java.class.path}" />
   			</classpath>
 		</javac>
+
+		<exec executable="native2ascii">
+			<arg line="-encoding UTF-8 src/interface.zhs.properties ${class.home}/interface_zh_CN.properties"/>
+		</exec>
+		<exec executable="native2ascii">
+			<arg line="-encoding UTF-8 src/interface.zht.properties ${class.home}/interface_zh.properties"/>
+		</exec>
+		<exec executable="native2ascii">
+			<arg line="-encoding UTF-8 src/interface.en.properties ${class.home}/interface.properties"/>
+		</exec>
 	</target>
 	
 	<target name="build_lib" depends="compile" description="build the library without GUI">
@@ -78,7 +88,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				<attribute name="Main-Class" value="${main.class}"/>
 				<attribute name="Class-Path" value="./"/>
 			</manifest>
-			<fileset dir="bin" includes="**/*.class" />
+			<fileset dir="${class.home}">
+				<include name="**/*.class" />
+				<include name="*.properties" />
+			</fileset>
 			<!-- fileset dir="bin" includes="*.properties" / -->
 			<zipfileset src="${swt.jar}" excludes="META-INF/*" />  
 		</jar>
@@ -86,7 +99,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		<copy overwrite="yes" file="icon.png" todir="${build.dir}" />
 		<copy todir="${build.dir}">
 			<fileset dir="." includes="*.properties" />
-			<fileset dir="src" includes="*.properties" />
 		</copy>
 		<copy todir="${build.dir}/data">
 			<fileset dir="data" includes="*.txt" />

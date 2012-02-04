@@ -2,7 +2,7 @@ jopencc
 ==========
 
 - Introdction -
------------
+----------------
 jopencc is a Java based tool to convert Traditional Chinese to Simplified Chinese and vice versa.
 
 This project is a java port of OpenCC (https://github.com/BYVoid/OpenCC) which developed by BYVoid <byvoid.kcp@gmail.com>.
@@ -13,9 +13,13 @@ The GUI part is based on the Standard Widget ToolkitStand (SWT). SWT is a graphi
 
 SWT is chosen instead of Swing because the interface looks more native and more responsive in SWT. However, it should be easy for a Swing port.
 
+- Interface -
+--------------
+English, Traditional Chinese and Simplified Chinese interfaces are provided.
+
 - Build -
------------
-Requirments:
+----------
+Requirements:
 Java 1.5 or above (tested for Java 5 and 6)
 
 SWT (tested 3.4 and 3.7)
@@ -37,5 +41,5 @@ java -Xms32M -Xmx512m -Xmn16M -XX:PermSize=32M -XX:MaxPermSize=256m -jar jopencc
 -----------
 1. adding different encoding support for input and output, currently only supports UTF-8
 2. use background thread for conversion
-3. Able to convert using menu bar
-4. i18n for interface
+3. Able to select convert mode using menu bar
+4. Able to select interface language

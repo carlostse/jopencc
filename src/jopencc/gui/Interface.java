@@ -27,17 +27,36 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package jopencc.gui;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class Interface {
 
-	public static final String[] TXT = new String[] {
-		"JOpencc", "0.0.1",
-		"Traditional to Simplified Chinese", "Simplified to Traditional Chinese", "Convert", // 4
-		"Developed by: ", "Carlos Tse", "iusers@hotmail.com", // 6
-		"Homepage: ", "http://my.no-ip.info/carlos/", "OK" // 9
-	};
-	
-	public static final String[] MENU = new String[] {
-		"&File", "&Open\tCTRL+O", "&Save\tCTRL+S", "E&xit\tCTRL+Q",
-		"&Help", "&About"
-	};
+	public static final String
+		PROG_NAME, PROG_VERSION,
+		BTN_TO_ZHS, BTN_TO_ZHT, BTN_CONVERT, BTN_OK,
+		ABT_AUTHOR, ABT_NAME, ABT_EMAIL, ABT_HOMEPAGE, ABT_URL,
+		MENU_FILE, MENU_OPEN, MENU_SAVE, MENU_CONVERT, MENU_EXIT, MENU_HELP, MENU_ABOUT;
+
+	static {
+		ResourceBundle rb = ResourceBundle.getBundle("interface", Locale.getDefault());
+		PROG_NAME = rb.getString("prog.name");
+		PROG_VERSION = rb.getString("prog.version");
+		BTN_TO_ZHS = rb.getString("btn.toZhs");
+		BTN_TO_ZHT = rb.getString("btn.toZht");
+		BTN_OK = rb.getString("btn.ok");
+		BTN_CONVERT = rb.getString("btn.convert");
+		ABT_AUTHOR = rb.getString("abt.author");
+		ABT_NAME = rb.getString("abt.name");
+		ABT_EMAIL = rb.getString("abt.email");
+		ABT_HOMEPAGE = rb.getString("abt.homepage"); 
+		ABT_URL = rb.getString("abt.url");
+		MENU_FILE = rb.getString("menu.file");
+		MENU_OPEN = rb.getString("menu.open");
+		MENU_SAVE = rb.getString("menu.save");
+		MENU_CONVERT = rb.getString("menu.convert");
+		MENU_EXIT = rb.getString("menu.exit");
+		MENU_HELP = rb.getString("menu.help");
+		MENU_ABOUT = rb.getString("menu.about");
+	}
 }

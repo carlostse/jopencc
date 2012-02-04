@@ -82,10 +82,9 @@ public class MainWindow {
 	}
 
 	private void initInterface() {
-		int idx = 0;
 		shell.setSize(SHELL_SIZE);
 		shell.setMinimumSize(SHELL_SIZE);
-		shell.setText(TXT[idx++] + " " + TXT[idx++]);
+		shell.setText(PROG_NAME + " " + PROG_VERSION);
 		shell.setImage(icon);
 		shell.setLayout(new GridLayout(3, false));
 		shell.setMenuBar(getMenuBar());
@@ -110,7 +109,7 @@ public class MainWindow {
 		// -- 1st row ---
 		for (int i = 0; i < buttons.length; i++) {
 			buttons[i] = new Button(shell, SWT.RADIO); // radio button
-			buttons[i].setText(TXT[idx++]);
+			buttons[i].setText(i == 0? BTN_TO_ZHS: BTN_TO_ZHT);
 			buttons[i].setLayoutData(leftGridData);
 			if (i == 0)
 				buttons[i].setSelection(true);
@@ -118,7 +117,7 @@ public class MainWindow {
 		
 		Button convBtn = new Button(shell, SWT.PUSH | SWT.CENTER); // push button
 		convBtn.setData("convert");
-		convBtn.setText(TXT[idx++]);
+		convBtn.setText(BTN_CONVERT);
 		convBtn.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e){
 				switch (e.type) {
@@ -138,30 +137,36 @@ public class MainWindow {
 	}
 
 	private Menu getMenuBar() {
-		int i = 0;
 		final Menu 	menuBar = new Menu(shell, SWT.BAR),
 					fileMenu = new Menu(shell, SWT.DROP_DOWN),
 					helpMenu = new Menu(shell, SWT.DROP_DOWN);
 		
 		// --- file ---
 		final MenuItem file = new MenuItem(menuBar, SWT.CASCADE);
-	    file.setText(MENU[i++]);
+	    file.setText(MENU_FILE);
 	    file.setMenu(fileMenu);
 	    
 	    final MenuItem openItem = new MenuItem(fileMenu, SWT.PUSH);
-	    openItem.setText(MENU[i++]);
+	    openItem.setText(MENU_OPEN);
 	    openItem.setAccelerator(SWT.CTRL + 'O');
 	    openItem.addSelectionListener(new Open());
 	    
 	    final MenuItem saveItem = new MenuItem(fileMenu, SWT.PUSH);
-	    saveItem.setText(MENU[i++]);
+	    saveItem.setText(MENU_SAVE);
 	    saveItem.setAccelerator(SWT.CTRL + 'S');
 	    saveItem.addSelectionListener(new Save());
 	    
 	    new MenuItem(fileMenu, SWT.SEPARATOR);
+	    
+	    final MenuItem convItem = new MenuItem(fileMenu, SWT.PUSH);
+	    convItem.setText(MENU_CONVERT);
+	    convItem.setAccelerator(SWT.CTRL + 'E');
+	    convItem.addSelectionListener(new Convert());
+	    
+	    new MenuItem(fileMenu, SWT.SEPARATOR);
 
 	    final MenuItem exitItem = new MenuItem(fileMenu, SWT.PUSH);
-	    exitItem.setText(MENU[i++]);
+	    exitItem.setText(MENU_EXIT);
 	    exitItem.setAccelerator(SWT.CTRL + 'Q');
 	    exitItem.addSelectionListener(new Exit());
 	    
@@ -170,11 +175,11 @@ public class MainWindow {
 	    
 	    // --- help ---
 	    final MenuItem help = new MenuItem(menuBar, SWT.CASCADE);
-	    help.setText(MENU[i++]);
+	    help.setText(MENU_HELP);
 	    help.setMenu(helpMenu);
 
 	    final MenuItem aboutItem = new MenuItem(helpMenu, SWT.PUSH);
-	    aboutItem.setText(MENU[i++]);
+	    aboutItem.setText(MENU_ABOUT);
 	    aboutItem.addSelectionListener(new About());
 	    
 		return menuBar;
@@ -219,6 +224,13 @@ public class MainWindow {
 			
 			if (FileUtil.isWritableFile(file))
 				FileUtil.write(file, text.getText());
+		}
+	}
+	
+	private class Convert implements SelectionListener {
+		public void widgetDefaultSelected(SelectionEvent e) {}
+		public void widgetSelected(SelectionEvent e) {
+			convert();
 		}
 	}
 	
