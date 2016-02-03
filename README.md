@@ -1,11 +1,10 @@
-jopencc
-==========
+# JOpenCC
 
-- Introdction -
-----------------
-jopencc is a Java based tool to convert Traditional Chinese to Simplified Chinese and vice versa.
+### Introdction
 
-This project is a java port of OpenCC (https://github.com/BYVoid/OpenCC) which developed by BYVoid <byvoid.kcp@gmail.com>.
+JOpenCC is a Java based tool to convert Traditional Chinese to Simplified Chinese and vice versa.
+
+This project is a java port of [OpenCC](https://github.com/BYVoid/OpenCC) which developed by BYVoid <byvoid.kcp@gmail.com>.
 
 Since the foundation differences between Java and C, only the dictionary is the same as OpenCC. The mapping methodology is completely different from the native C Opencc.
 
@@ -13,33 +12,45 @@ The GUI part is based on the Standard Widget ToolkitStand (SWT). SWT is a graphi
 
 SWT is chosen instead of Swing because the interface looks more native and more responsive in SWT. However, it should be easy for a Swing port.
 
-- Interface -
---------------
+### Interface
+
 English, Traditional Chinese and Simplified Chinese interfaces are provided.
 
-- Build -
-----------
-Requirements:
-Java 1.5 or above (tested for Java 5 and 6)
+### Build 
 
-SWT (tested 3.4 and 3.7)
-Download: http://www.eclipse.org/swt/
-1. Open eclipse
-2. File -> Import -> "Existing Projects into Workspace" -> "Select archieve file" -> select the swt.zip downloaded
-3. By default the SWT JAR will be placed in {workspace}\org.eclipse.swt\swt.jar
+#### Prerequisites
 
-- Build - 
-Apache Ant is needed to build the project
-http://ant.apache.org/
+* Java 1.5 or above
 
-- Run -
------------
-suggest to enlarge the memory for the JVM for processing long text
+* [SWT](http://www.eclipse.org/swt/) (tested 3.4, 3.7 and 4.5)
+
+  - By default the SWT JAR will be placed in ..\org.eclipse.swt\swt.jar
+
+* [Apache ANT](https://ant.apache.org) is needed to build the project
+
+#### Compile
+
+```bash
+ $ ant build
+```
+
+### Run
+It's suggested that to enlarge the memory for the JVM for processing long text
+
+```bash
 java -Xms32M -Xmx512m -Xmn16M -XX:PermSize=32M -XX:MaxPermSize=256m -jar jopencc.jar
+```
 
-- TODO -
------------
+or
+
+```bash
+ $ ant run
+```
+
+### TODO
+
 1. adding different encoding support for input and output, currently only supports UTF-8
 2. use background thread for conversion
 3. Able to select convert mode using menu bar
 4. Able to select interface language
+5. Replace [Apache ANT](https://ant.apache.org) with [Apache Maven](https://maven.apache.org)
