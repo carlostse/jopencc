@@ -20,31 +20,33 @@ English, Traditional Chinese and Simplified Chinese interfaces are provided.
 
 #### Prerequisites
 
-* Java 1.5 or above
+* Java 1.7 or above
 
-* [SWT](http://www.eclipse.org/swt/) (tested 3.4, 3.7 and 4.5)
+* [SWT](http://www.eclipse.org/swt/) (tested 3.4, 3.7 and 4.3)
 
   - By default the SWT JAR will be placed in ..\org.eclipse.swt\swt.jar
 
 * [Apache ANT](https://ant.apache.org) is needed to build the project
 
-#### Compile
+#### Build Lib (without GUI)
 
 ```bash
- $ ant build
+$ ant lib
 ```
 
-### Run
+#### Run with GUI (requires SWT)
 It's suggested that to enlarge the memory for the JVM for processing long text
 
 ```bash
-java -Xms32M -Xmx512m -Xmn16M -XX:PermSize=32M -XX:MaxPermSize=256m -jar jopencc.jar
+$ java -XstartOnFirstThread -Xms32M -Xmx512m -Xmn16M -jar jopencc.jar
 ```
+
+`-XstartOnFirstThread` is required in macOS and Java 7.
 
 or
 
 ```bash
- $ ant run
+$ ant run
 ```
 
 ### TODO

@@ -35,25 +35,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <property name="src.dir" value="./src/main/java" />
   <property name="res.dir" value="./src/main/resources" />
   <property name="swt.jar" value="../org.eclipse.swt/swt.jar" />
-  
+
   <target name="clean" depends="" description="clean the project">
     <delete includeEmptyDirs="true" failonerror="false">
       <fileset dir="${class.home}" includes="**/*"/>
       <fileset dir="${build.dir}" includes="**/*"/>
     </delete>
   </target>
-  
+
   <target name="prepare" depends="" description="prepare to build">
     <mkdir dir="${class.home}" />
     <mkdir dir="${build.dir}" />
     <mkdir dir="${build.dir}/data" />
   </target>
-  
+
   <target name="compile" depends="prepare" description="compile java classess">
     <javac destdir="${class.home}"
       debug="true" debuglevel="lines,vars,source"
       optimize="on" deprecation="on" verbose="on"
-      encoding="utf-8" source="1.5" target="1.5" nowarn="true">
+      encoding="utf-8" source="1.7" target="1.7" nowarn="true">
       <src path="${src.dir}" />
       <exclude name="test/**" />
       <!-- Define CLASSPATH -->
@@ -75,8 +75,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <arg line="-encoding UTF-8 ${res.dir}/interface.en.properties ${class.home}/interface.properties"/>
     </exec>
   </target>
-  
-  <target name="build_lib" depends="compile" description="build the library without GUI">
+
+  <target name="lib" depends="compile" description="build the library without GUI">
     <jar jarfile="${build.dir}/${jar.fileName}-lib.jar">
       <fileset dir="bin" includes="**/*.class">
         <exclude name="jopencc/gui/*.class"/>
@@ -84,7 +84,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <fileset dir="." includes="*.properties" />
     </jar>
   </target>
-  
+
   <target name="build" depends="compile" description="build the GUI program">
     <jar jarfile="${build.dir}/${jar.fileName}.jar">
       <manifest>
@@ -96,7 +96,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <include name="*.properties" />
       </fileset>
       <!-- fileset dir="bin" includes="*.properties" / -->
-      <zipfileset src="${swt.jar}" excludes="META-INF/*" />  
+      <zipfileset src="${swt.jar}" excludes="META-INF/*" />
     </jar>
     <!-- don't want the following files included in the jar file -->
     <copy overwrite="yes" file="icon.png" todir="${build.dir}" />
@@ -107,14 +107,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <fileset dir="data" includes="*.txt" />
     </copy>
   </target>
-  
+
   <target name="run" depends="build" description="run the application">
     <java jar="${build.dir}/${jar.fileName}.jar" fork="true">
       <jvmarg value="-Xms32M" />
       <jvmarg value="-Xmx512m" />
       <jvmarg value="-Xmn16M" />
+      <!--
       <jvmarg value="-XX:PermSize=32M" />
       <jvmarg value="-XX:MaxPermSize=256m" />
+      -->
     </java>
   </target>
 

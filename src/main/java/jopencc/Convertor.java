@@ -30,7 +30,8 @@ public class Convertor {
 	
 	/**
 	 * Convert the source to Traditional Chinese
-	 * @param src
+	 *
+	 * @param src - source StringBuffer
 	 * @return Text in Traditional Chinese
 	 */
 	public String convertToZht(StringBuffer src){
@@ -43,7 +44,7 @@ public class Convertor {
 			return DICT_TO_ZHT.getResult();
 			
 		} catch (Exception e){
-			return src == null? null: src.toString();
+			return src.toString();
 		} finally {
 			DICT_TO_ZHT.clear();
 		}
@@ -51,7 +52,8 @@ public class Convertor {
 	
 	/**
 	 * Convert the source to Traditional Chinese
-	 * @param src
+	 *
+	 * @param src - source String
 	 * @return Text in Traditional Chinese
 	 */
 	public String convertToZht(String src){
@@ -60,7 +62,8 @@ public class Convertor {
 	
 	/**
 	 * Convert the source to Simplified Chinese
-	 * @param src
+	 *
+	 * @param src - source StringBuffer
 	 * @return Text in Traditional Chinese
 	 */
 	public String convertToZhs(StringBuffer src){
@@ -73,7 +76,7 @@ public class Convertor {
 			return DICT_TO_ZHS.getResult();
 			
 		} catch (Exception e){
-			return src == null? null: src.toString();
+			return src.toString();
 		} finally {
 			DICT_TO_ZHS.clear();
 		}
@@ -81,7 +84,8 @@ public class Convertor {
 	
 	/**
 	 * Convert the source to Simplified Chinese
-	 * @param src
+	 *
+	 * @param src - source String
 	 * @return Text in Traditional Chinese
 	 */
 	public String convertToZhs(String src){
