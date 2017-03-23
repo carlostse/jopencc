@@ -16,161 +16,162 @@ limitations under the License.
 
 package jopencc.util;
 
-import static jopencc.util.Util.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import static jopencc.util.Util.*;
 
 public class Dict {
 
-	public static final String	ZHT_TO_ZHS		= "zht2zhs",
-								ZHS_TO_ZHT		= "zhs2zht";
-	
-	private static final String PROPERTY_PHRASE = "phrase",
-								PROPERTY_CHAR	= "character";
-	
-	public Dict(String config) {
-		super();
-		this.config = config;
-		init();
-	}
-	
-	public Dict(StringBuffer src, String config) {
-		super();
-		setSrc(src);
-		this.config = config;
-		init();
-	}
-	
-	public Dict(String src, String config) {
-		super();
-		setSrc(src);
-		this.config = config;
-		init();
-	}
+    public static final String ZHT_TO_ZHS = "zht2zhs",
+            ZHS_TO_ZHT = "zhs2zht";
 
-	private void init() {
-		dictPhrase = new LinkedHashMap<String, String>();
-		dictChar = new LinkedHashMap<String, String>();
-	}
-	
-	private boolean init;
-	private Map<String, String> dictPhrase, dictChar; // static dictionary map
-	private StringBuffer src;
-	private String config;
-	
-	/**
-	 * initialize dictionary
-	 */
-	private void initDict() {
-		if (init)
-			return;
-		
-		log("initialize map...");
+    private static final String PROPERTY_PHRASE = "phrase",
+            PROPERTY_CHAR = "character";
 
-		InputStream is = null;
-		String[] p = null;
+    public Dict(String config) {
+        super();
+        this.config = config;
+        init();
+    }
 
-		try {
-			is = getClass().getClassLoader().getResourceAsStream(config + ".properties");
-			p = getValFrProperty(is, new String[]{ PROPERTY_PHRASE, PROPERTY_CHAR });
+    public Dict(StringBuffer src, String config) {
+        super();
+        setSrc(src);
+        this.config = config;
+        init();
+    }
 
-		} catch (Exception e){
-			log("initDict Exception: " + e.getStackTrace());
-			if (is != null){
-				try {
-					is.close();
-				} catch (IOException e1) {
-					log("initDict close IOException: " + e1.getStackTrace());
-				}
-				is = null;
-			}
-			return;
-		}
+    public Dict(String src, String config) {
+        super();
+        setSrc(src);
+        this.config = config;
+        init();
+    }
 
-		if (isMissing(p)){
-			log("cannot get config: " + config);
-			return;
-		}
-		
-		dictPhrase = FileUtil.readDict(new File(p[0]));
-		dictChar = FileUtil.readDict(new File(p[1]));
-		
-		if (isMissing(dictPhrase) || isMissing(dictChar)){
-			log("cannot get dict");
-			return;
-		}
-		
-		init = true;
-	}
-	
-	/**
-	 * Convert the source
-	 */
-	public void convert() {
-		// return if source is empty
-		if (isMissing(src)){
-			log("missing src");
-			return;
-		}
-		
-		// initialize the map once
-		initDict();
-		
-		// map the phrases
+    private void init() {
+        dictPhrase = new LinkedHashMap<String, String>();
+        dictChar = new LinkedHashMap<String, String>();
+    }
+
+    private boolean init;
+    private Map<String, String> dictPhrase, dictChar; // static dictionary map
+    private StringBuffer src;
+    private String config;
+
+    /**
+     * initialize dictionary
+     */
+    private void initDict() {
+        if (init)
+            return;
+
+        log("initialize map...");
+
+        InputStream is = null;
+        String[] p = null;
+
+        try {
+            is = getClass().getClassLoader().getResourceAsStream(config + ".properties");
+            p = getValFrProperty(is, new String[]{PROPERTY_PHRASE, PROPERTY_CHAR});
+
+        } catch (Exception e) {
+            log("initDict Exception: " + e.getStackTrace());
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e1) {
+                    log("initDict close IOException: " + e1.getStackTrace());
+                }
+                is = null;
+            }
+            return;
+        }
+
+        if (isMissing(p)) {
+            log("cannot get config: " + config);
+            return;
+        }
+
+        dictPhrase = FileUtil.readDict(new File(p[0]));
+        dictChar = FileUtil.readDict(new File(p[1]));
+
+        if (isMissing(dictPhrase) || isMissing(dictChar)) {
+            log("cannot get dict");
+            return;
+        }
+
+        init = true;
+    }
+
+    /**
+     * Convert the source
+     */
+    public void convert() {
+        // return if source is empty
+        if (isMissing(src)) {
+            log("missing src");
+            return;
+        }
+
+        // initialize the map once
+        initDict();
+
+        // map the phrases
 //		log("map phrases...");
-		if (!isMissing(dictPhrase))
-			map(src, dictPhrase);
-		else 
-			log("missing dictPhrase");
-		
-		// map the characters
+        if (!isMissing(dictPhrase))
+            map(src, dictPhrase);
+        else
+            log("missing dictPhrase");
+
+        // map the characters
 //		log("map characters...");
-		if (!isMissing(dictChar))
-			map(src, dictChar);
-		else 
-			log("missing dictChar");
-	}
+        if (!isMissing(dictChar))
+            map(src, dictChar);
+        else
+            log("missing dictChar");
+    }
 
-	/**
-	 * Map the source with dictionary
-	 * @param src
-	 * @param dict
-	 */
-	private static void map(StringBuffer src, Map<String, String> dict) {
-		String key, value;
-		int idx, pos, len;
-		Iterator<String> it = dict.keySet().iterator();
-		while (it.hasNext()){
-			key = it.next();
-			pos = 0;
-			while ((idx = src.indexOf(key, pos)) > -1){
-				value = dict.get(key);
-				len = value.length();
+    /**
+     * Map the source with dictionary
+     *
+     * @param src
+     * @param dict
+     */
+    private static void map(StringBuffer src, Map<String, String> dict) {
+        String key, value;
+        int idx, pos, len;
+        Iterator<String> it = dict.keySet().iterator();
+        while (it.hasNext()) {
+            key = it.next();
+            pos = 0;
+            while ((idx = src.indexOf(key, pos)) > -1) {
+                value = dict.get(key);
+                len = value.length();
 //				log(key + " -> " + value + ", idx: " + idx + ", len: " + len);
-				src.replace(idx, idx + len, value);
-				pos = idx + len;
-			}
-		}
-		it = null;
-	}
-	
-	public void clear() {
-		src = null;
-	}
-	
-	public String getResult() {
-		return src.toString();
-	}
+                src.replace(idx, idx + len, value);
+                pos = idx + len;
+            }
+        }
+        it = null;
+    }
 
-	public void setSrc(StringBuffer src) {
-		this.src = src;
-	}
-	
-	public void setSrc(String src) {
-		this.src = new StringBuffer(src);
-	}
+    public void clear() {
+        src = null;
+    }
+
+    public String getResult() {
+        return src.toString();
+    }
+
+    public void setSrc(StringBuffer src) {
+        this.src = src;
+    }
+
+    public void setSrc(String src) {
+        this.src = new StringBuffer(src);
+    }
 }

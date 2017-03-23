@@ -21,74 +21,75 @@ import jopencc.util.Util;
 
 public class Convertor {
 
-	static {
-		DICT_TO_ZHS = new Dict(Dict.ZHT_TO_ZHS);
-		DICT_TO_ZHT = new Dict(Dict.ZHS_TO_ZHT);
-	}
-	
-	private static final Dict DICT_TO_ZHS, DICT_TO_ZHT;
-	
-	/**
-	 * Convert the source to Traditional Chinese
-	 *
-	 * @param src - source StringBuffer
-	 * @return Text in Traditional Chinese
-	 */
-	public String convertToZht(StringBuffer src){
-		if (Util.isMissing(src))
-			return src == null? null: src.toString();
-		
-		try {
-			DICT_TO_ZHT.setSrc(src);
-			DICT_TO_ZHT.convert();
-			return DICT_TO_ZHT.getResult();
-			
-		} catch (Exception e){
-			return src.toString();
-		} finally {
-			DICT_TO_ZHT.clear();
-		}
-	}
-	
-	/**
-	 * Convert the source to Traditional Chinese
-	 *
-	 * @param src - source String
-	 * @return Text in Traditional Chinese
-	 */
-	public String convertToZht(String src){
-		return Util.isMissing(src)? src: convertToZht(new StringBuffer(src));
-	}
-	
-	/**
-	 * Convert the source to Simplified Chinese
-	 *
-	 * @param src - source StringBuffer
-	 * @return Text in Traditional Chinese
-	 */
-	public String convertToZhs(StringBuffer src){
-		if (Util.isMissing(src))
-			return src == null? null: src.toString();
-		
-		try {
-			DICT_TO_ZHS.setSrc(src);
-			DICT_TO_ZHS.convert();
-			return DICT_TO_ZHS.getResult();
-			
-		} catch (Exception e){
-			return src.toString();
-		} finally {
-			DICT_TO_ZHS.clear();
-		}
-	}
-	
-	/**
-	 * Convert the source to Simplified Chinese
-	 *
-	 * @param src - source String
-	 * @return Text in Traditional Chinese
-	 */
-	public String convertToZhs(String src){
-		return Util.isMissing(src)? src: convertToZhs(new StringBuffer(src));
-	}
+    static {
+        DICT_TO_ZHS = new Dict(Dict.ZHT_TO_ZHS);
+        DICT_TO_ZHT = new Dict(Dict.ZHS_TO_ZHT);
+    }
+
+    private static final Dict DICT_TO_ZHS, DICT_TO_ZHT;
+
+    /**
+     * Convert the source to Traditional Chinese
+     *
+     * @param src - source StringBuffer
+     * @return Text in Traditional Chinese
+     */
+    public String convertToZht(StringBuffer src) {
+        if (Util.isMissing(src))
+            return src == null ? null : src.toString();
+
+        try {
+            DICT_TO_ZHT.setSrc(src);
+            DICT_TO_ZHT.convert();
+            return DICT_TO_ZHT.getResult();
+
+        } catch (Exception e) {
+            return src.toString();
+        } finally {
+            DICT_TO_ZHT.clear();
+        }
+    }
+
+    /**
+     * Convert the source to Traditional Chinese
+     *
+     * @param src - source String
+     * @return Text in Traditional Chinese
+     */
+    public String convertToZht(String src) {
+        return Util.isMissing(src) ? src : convertToZht(new StringBuffer(src));
+    }
+
+    /**
+     * Convert the source to Simplified Chinese
+     *
+     * @param src - source StringBuffer
+     * @return Text in Traditional Chinese
+     */
+    public String convertToZhs(StringBuffer src) {
+        if (Util.isMissing(src))
+            return src == null ? null : src.toString();
+
+        try {
+            DICT_TO_ZHS.setSrc(src);
+            DICT_TO_ZHS.convert();
+            return DICT_TO_ZHS.getResult();
+
+        } catch (Exception e) {
+            return src.toString();
+        } finally {
+            DICT_TO_ZHS.clear();
+        }
+    }
+
+    /**
+     * Convert the source to Simplified Chinese
+     *
+     * @param src - source String
+     * @return Text in Traditional Chinese
+     */
+    public String convertToZhs(String src) {
+        return Util.isMissing(src) ? src : convertToZhs(new StringBuffer(src));
+    }
+
 }
