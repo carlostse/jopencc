@@ -138,8 +138,8 @@ public class Dict {
     /**
      * Map the source with dictionary
      *
-     * @param src
-     * @param dict
+     * @param src - source string
+     * @param dict - dictionary
      */
     private static void map(StringBuffer src, Map<String, String> dict) {
         String key, value;
