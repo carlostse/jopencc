@@ -16,6 +16,7 @@ limitations under the License.
 
 package jopencc.util;
 
+import java.io.Closeable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,5 +89,19 @@ public class Util {
             log("getFromPropertyFile, IOException", e);
         }
         return result;
+    }
+
+    /**
+     * Close stream, file, etc.
+     *
+     * @param c - closeable
+     */
+    public static void close(Closeable c){
+        if (c == null) return;
+        try {
+            c.close();
+        } catch (IOException e) {
+            // ignore exception
+        }
     }
 }

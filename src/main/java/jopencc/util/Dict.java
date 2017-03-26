@@ -17,9 +17,7 @@ limitations under the License.
 package jopencc.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import static jopencc.util.Util.*;
@@ -72,22 +70,14 @@ public class Dict {
         log("initialize map...");
 
         InputStream is = null;
-        String[] p = null;
-
+        String[] p;
         try {
             is = getClass().getClassLoader().getResourceAsStream(config + ".properties");
             p = getValFrProperty(is, new String[]{PROPERTY_PHRASE, PROPERTY_CHAR});
 
         } catch (Exception e) {
-            log("initDict Exception: " + e.getStackTrace());
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e1) {
-                    log("initDict close IOException: " + e1.getStackTrace());
-                }
-                is = null;
-            }
+            log("initDict Exception: " + e.getMessage());
+            Util.close(is);
             return;
         }
 
@@ -142,21 +132,16 @@ public class Dict {
      * @param dict - dictionary
      */
     private static void map(StringBuffer src, Map<String, String> dict) {
-        String key, value;
-        int idx, pos, len;
-        Iterator<String> it = dict.keySet().iterator();
-        while (it.hasNext()) {
-            key = it.next();
-            pos = 0;
+       for (String key: dict.keySet()){
+            int pos = 0, idx;
             while ((idx = src.indexOf(key, pos)) > -1) {
-                value = dict.get(key);
-                len = value.length();
+                String value = dict.get(key);
+                int len = value.length();
 //				log(key + " -> " + value + ", idx: " + idx + ", len: " + len);
                 src.replace(idx, idx + len, value);
                 pos = idx + len;
             }
         }
-        it = null;
     }
 
     public void clear() {
