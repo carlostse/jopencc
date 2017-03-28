@@ -22,11 +22,11 @@ import jopencc.util.Util;
 public class Convertor {
 
     static {
-        DICT_TO_ZHS = new Dict(Dict.ZHT_TO_ZHS);
-        DICT_TO_ZHT = new Dict(Dict.ZHS_TO_ZHT);
+        dictToZhs = new Dict(Dict.ZHT_TO_ZHS);
+        dictToZht = new Dict(Dict.ZHS_TO_ZHT);
     }
 
-    private static final Dict DICT_TO_ZHS, DICT_TO_ZHT;
+    private static final Dict dictToZhs, dictToZht;
 
     /**
      * Convert the source to Traditional Chinese
@@ -39,14 +39,14 @@ public class Convertor {
             return src == null ? null : src.toString();
 
         try {
-            DICT_TO_ZHT.setSrc(src);
-            DICT_TO_ZHT.convert();
-            return DICT_TO_ZHT.getResult();
+            dictToZht.setSrc(src);
+            dictToZht.convert();
+            return dictToZht.getResult();
 
         } catch (Exception e) {
             return src.toString();
         } finally {
-            DICT_TO_ZHT.clear();
+            dictToZht.clear();
         }
     }
 
@@ -71,14 +71,14 @@ public class Convertor {
             return src == null ? null : src.toString();
 
         try {
-            DICT_TO_ZHS.setSrc(src);
-            DICT_TO_ZHS.convert();
-            return DICT_TO_ZHS.getResult();
+            dictToZhs.setSrc(src);
+            dictToZhs.convert();
+            return dictToZhs.getResult();
 
         } catch (Exception e) {
             return src.toString();
         } finally {
-            DICT_TO_ZHS.clear();
+            dictToZhs.clear();
         }
     }
 

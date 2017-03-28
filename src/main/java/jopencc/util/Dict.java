@@ -24,10 +24,12 @@ import static jopencc.util.Util.*;
 
 public class Dict {
 
-    public static final String ZHT_TO_ZHS = "zht2zhs",
+    public static final String
+            ZHT_TO_ZHS = "zht2zhs",
             ZHS_TO_ZHT = "zhs2zht";
 
-    private static final String PROPERTY_PHRASE = "phrase",
+    private static final String
+            PROPERTY_PHRASE = "phrase",
             PROPERTY_CHAR = "character";
 
     public Dict(String config) {
