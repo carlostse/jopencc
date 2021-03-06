@@ -1,6 +1,11 @@
+.DS_Store
 bin/
 build/
 target/
-.idea
+.idea/
+.vscode/
+.settings/
 jopencc.iml
+.classpath
+.project
 docs
